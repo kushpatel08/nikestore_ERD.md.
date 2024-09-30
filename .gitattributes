@@ -1,2 +1,66 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+
+```mermaid
+erDiagram
+    PRODUCT {
+        int id PK
+        string name
+        string brand
+        string size
+        float price
+        int stock_quantity
+    }
+    
+    CUSTOMER {
+        int id PK
+        string name
+        string email
+        string phone
+        string address
+    }
+    
+    SALE {
+        int id PK
+        date sale_date
+        float total_amount
+        int customer_id FK
+    }
+    
+    SALE_ITEM {
+        int id PK
+        int sale_id FK
+        int product_id FK
+        int quantity
+        float price
+    }
+    
+    INVENTORY {
+        int id PK
+        int product_id FK
+        int quantity
+        date restock_date
+    }
+
+    PRODUCT ||--o{ SALE_ITEM : contains
+    CUSTOMER ||--o{ SALE : makes
+    SALE ||--o{ SALE_ITEM : includes
+    PRODUCT ||--o{ INVENTORY : has
+
+
+
+a product can be assiocated with multiple sales item (one to many) - This relationship
+is essential because it is effcient for sales management, can keep track of inventory,
+and shows which product sells the most often.
+a customer can have many sales (one to many) - this relationship is cruical for improving
+customer engagemnent and services. 
+a sale can consist of several sales item (one to many) - this relationship shows the signifcance of 
+order management and sales analysis by catching trends in customers and what they purchase together.
+a product can have several records in inventory (one to many) - this relationship is significant because
+it shows stock level for each product and can help with ordering to restock.
+
+
+
+
+
+
+
